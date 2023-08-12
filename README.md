@@ -10,3 +10,7 @@
     - ``` cmake -B target/ -S . ```
     - ``` cd target/ && make -j`nproc` ```
     - ``` sudo make install ```
+
+
+## Orb example
+![orb-features](docs/arial-detects.png)
