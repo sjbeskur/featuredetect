@@ -1,74 +1,26 @@
-use opencv::{
-    core::*,
-    features2d::*,
-    //imgproc::*,
-    highgui::imshow, //{named_window, WindowFlags},
-    imgcodecs::{imread, IMREAD_GRAYSCALE},
-    prelude::*,
-};
+use std::error::Error;
+use ndarray::ArrayView2;
+use opencv as cv;
+use cv::prelude::*;
 
 pub mod cli;
+pub mod orb_matcher;
+pub mod orb_detector;
 
-pub fn orb_detect(image_file: &str) {
-    let img = imread(image_file, IMREAD_GRAYSCALE).unwrap();
 
-    let nfeatures = 500;
-    let scale_factor: f32 = 1.2;
-    let nlevels = 8;
-    let edge_threshold = 31;
-    let first_level = 0;
-    let wta_k = 2;
-    let score_type = ORB_ScoreType::HARRIS_SCORE;
-    let patch_size = 31;
-    let fast_threshold = 20;
-    let mut my_orb = ORB::create(
-        nfeatures,
-        scale_factor,
-        nlevels,
-        edge_threshold,
-        first_level,
-        wta_k,
-        score_type,
-        patch_size,
-        fast_threshold,
-    )
-    .unwrap();
 
-    let mut keypoints = opencv::core::Vector::new();
+pub trait ToNDArray {
+    fn try_as_array(&self) -> Result<ArrayView2<u8>, Box<dyn Error>>;
+}
 
-    let mut mask = Mat::default();
-    let _ = my_orb.detect(&img, &mut keypoints, &mask);
-
-    let count = keypoints.len();
-    println!("Number of keypoints: {}", count);
-    for k in keypoints.iter() {
-        println!("{:?}", k);
+impl ToNDArray for cv::core::Mat {
+    fn try_as_array(&self) -> Result<ArrayView2<u8>, Box<dyn Error>> {
+        if !self.is_continuous() {
+            return Err("Mat is not continuous".into());  // sanity check we hope never happens
+        }
+        let bytes = self.data_bytes()?;
+        let size = self.size()?;
+        let a = ArrayView2::from_shape((size.height as usize, size.width as usize), bytes)?;
+        Ok(a)
     }
-    // compute the descriptors with ORB
-    // kp, des = orb.compute(img, kp)
-    let _ = my_orb.compute(&img, &mut keypoints, &mut mask);
-
-    // draw only keypoints location,not size and orientation
-    //img2 = cv.drawKeypoints(img, kp, None, color=(0,255,0), flags=0)
-    //imshow(img2),
-    //plt.show()
-
-    let red_color = Scalar::new(0.0, 0.0, 255.0, 0.0);
-    let mut out_img = img.clone();
-    let _ = draw_keypoints(
-        &img,
-        &keypoints,
-        &mut out_img,
-        red_color,
-        DrawMatchesFlags::DEFAULT,
-    );
-
-    // Create a named window to display the image
-    //named_window("Display Window", WindowFlags::WINDOW_NORMAL).unwrap();
-
-    // Display the image
-    imshow("Display Window", &out_img).unwrap();
-
-    // Wait for a key press (0 means wait indefinitely)
-    opencv::highgui::wait_key(0).unwrap();
 }

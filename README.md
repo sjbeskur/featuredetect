@@ -19,6 +19,7 @@
 ```
 
 ![orb-features](docs/arial-detects.png)
+![orb-features](docs/box_matches.png)
 
 
 ## Going Forward:
