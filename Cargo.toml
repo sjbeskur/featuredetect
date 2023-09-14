@@ -9,3 +9,4 @@ edition = "2021"
 clap = { version = "4.4", features = ["derive"] }
 opencv = "0.84.5"
 ndarray = "0.15"
+camino = "1.1"

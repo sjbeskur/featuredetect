@@ -1,4 +1,6 @@
-use clap::Parser;
+use clap::{Args, Parser, Subcommand};
+use camino::Utf8PathBuf;
+
 
 #[derive(Debug, Parser)]
 #[command(
@@ -8,7 +10,11 @@ use clap::Parser;
     long_about = "A very basic demonstration of OpenCV Feature Detector(s)."
 )]
 pub struct Config {
-    pub filename: String,
+
+    #[clap(subcommand)]
+    pub command: Command,
+
+    //pub filename: String,
     //    #[arg(short = 'c', long = "connectivity", default_value_t = 4 )]
     //    pub connectivity: u8,  // TODO: figure out how to only allow 4 or 8?
 }
@@ -16,4 +22,27 @@ pub struct Config {
 pub fn parse_args() -> Config {
     let config = Config::parse();
     return config;
+}
+
+#[derive(Debug, Subcommand)]
+pub enum Command {
+    /// Help message for read.
+    Match {
+        /// An example option
+        // #[clap(long, short = 'o')]
+        // example_opt: bool,
+
+        /// The path to read from
+        path0: Utf8PathBuf,
+
+        path1: Utf8PathBuf,
+        // (can #[clap(flatten)] other argument structs here)
+    },
+    /// Help message for write.
+    Detect{
+        /// The path to read from
+        path: Utf8PathBuf,
+
+    },
+    // ...other commands (can #[clap(flatten)] other enum variants here)
 }
