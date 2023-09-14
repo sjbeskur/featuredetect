@@ -1,13 +1,12 @@
 use opencv::{
     core::*,
     features2d::*,
-    //imgproc::*,
-    highgui::imshow, //{named_window, WindowFlags},
+    highgui::{imshow, named_window, WindowFlags},
     imgcodecs::{imread, IMREAD_GRAYSCALE},
 };
 
 
-pub fn orb_detect(image_file: &str) {
+pub fn orb_detect(image_file: &str) -> Result<(), Box<dyn std::error::Error>> {
     let img = imread(image_file, IMREAD_GRAYSCALE).unwrap();
 
     let nfeatures = 500;
@@ -29,44 +28,30 @@ pub fn orb_detect(image_file: &str) {
         score_type,
         patch_size,
         fast_threshold,
-    )
-    .unwrap();
+    )?;
 
     let mut keypoints = opencv::core::Vector::new();
 
     let mut mask = Mat::default();
-    let _ = my_orb.detect(&img, &mut keypoints, &mask);
+    my_orb.detect(&img, &mut keypoints, &mask)?;
 
     let count = keypoints.len();
     println!("Number of keypoints: {}", count);
-    for k in keypoints.iter() {
-        println!("{:?}", k);
-    }
-    // compute the descriptors with ORB
-    // kp, des = orb.compute(img, kp)
-    let _ = my_orb.compute(&img, &mut keypoints, &mut mask);
 
-    // draw only keypoints location,not size and orientation
-    //img2 = cv.drawKeypoints(img, kp, None, color=(0,255,0), flags=0)
-    //imshow(img2),
-    //plt.show()
+    // compute the descriptors with ORB
+    my_orb.compute(&img, &mut keypoints, &mut mask)?;
 
     let red_color = Scalar::new(0.0, 0.0, 255.0, 0.0);
     let mut out_img = img.clone();
-    let _ = draw_keypoints(
-        &img,
-        &keypoints,
-        &mut out_img,
-        red_color,
-        DrawMatchesFlags::DEFAULT,
-    );
+    draw_keypoints(&img, &keypoints, &mut out_img, red_color, DrawMatchesFlags::DEFAULT)?;
 
     // Create a named window to display the image
-    //named_window("Display Window", WindowFlags::WINDOW_NORMAL).unwrap();
+    named_window("Display Window", WindowFlags::WINDOW_NORMAL as i32)?;
 
     // Display the image
-    imshow("Display Window", &out_img).unwrap();
+    imshow("Display Window", &out_img)?;
 
     // Wait for a key press (0 means wait indefinitely)
-    opencv::highgui::wait_key(0).unwrap();
+    opencv::highgui::wait_key(0)?;
+    Ok(())
 }
