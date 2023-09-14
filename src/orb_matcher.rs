@@ -14,31 +14,24 @@ pub fn detect_matches(file0: &str, file1: &str ) -> Result<(), Box<dyn std::erro
     let img0 = imread(file0, IMREAD_GRAYSCALE)?;
     let img1 = imread(file1, IMREAD_GRAYSCALE)?;
 
-
-    // let img_nd = img0.try_as_array()?;
-    // println!("dimensions: {:?}", img_nd.shape());
-    // println!("dimensions: {:?}", img_nd);
-
     let mut orb = ORB::default()?;
     let mask = Mat::default(); // or no_array(); ??
 
-
     let mut kp_a = VectorOfKeyPoint::new();
     let mut des_a = Mat::default();
+
     //let _ = orb.compute(&img0, &mut kp_a, &mut des_a);
-    let _ = orb.detect_and_compute(&img0, &mask, &mut kp_a, &mut des_a, false);
+    orb.detect_and_compute(&img0, &mask, &mut kp_a, &mut des_a, false)?;
 
     let mut kp_b = VectorOfKeyPoint::new();
     let mut des_b = Mat::default();
-    let _ = orb.detect_and_compute(&img1, &mask, &mut kp_b, &mut des_b, false);
-    //let _ = orb.compute(&img1, &mut kp_b, &mut des_b);
+    orb.detect_and_compute(&img1, &mask, &mut kp_b, &mut des_b, false)?;
 
     // let mut bf_matcher = DescriptorMatcher::create("BruteForce-Hamming")?;
     let bf_matcher = BFMatcher::new(NORM_HAMMING, true)?;
     
     let mut matches = VectorOfDMatch::new();
     bf_matcher.train_match(&des_a, &des_b, &mut matches, &no_array())?;
-
 
     println!("\n MATHES : {} --------------------" , matches.len());
 
@@ -57,12 +50,11 @@ pub fn detect_matches(file0: &str, file1: &str ) -> Result<(), Box<dyn std::erro
         Scalar::all(-1.0),
         &Vector::<i8>::new(),
         DrawMatchesFlags::DEFAULT,
-    )
-    .unwrap();
+    )?;
 
     // // Show matches
-    imshow("Matches", &out_image).unwrap();
-    opencv::highgui::wait_key(0).unwrap();
+    imshow("Matches", &out_image)?;
+    opencv::highgui::wait_key(0)?;
 
 
     Ok(())
