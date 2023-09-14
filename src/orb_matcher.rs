@@ -15,9 +15,9 @@ pub fn detect_matches(file0: &str, file1: &str ) -> Result<(), Box<dyn std::erro
     let img1 = imread(file1, IMREAD_GRAYSCALE)?;
 
 
-    let img_nd = img0.try_as_array()?;
-    println!("dimensions: {:?}", img_nd.shape());
-    println!("dimensions: {:?}", img_nd);
+    // let img_nd = img0.try_as_array()?;
+    // println!("dimensions: {:?}", img_nd.shape());
+    // println!("dimensions: {:?}", img_nd);
 
     let mut orb = ORB::default()?;
     let mask = Mat::default(); // or no_array(); ??
