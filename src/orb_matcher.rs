@@ -1,5 +1,3 @@
-use super::*;
-
 use opencv::{
     core::{Scalar, Mat, NORM_HAMMING, no_array, Vector},
     features2d::*,
@@ -52,7 +50,7 @@ pub fn detect_matches(file0: &str, file1: &str ) -> Result<(), Box<dyn std::erro
         DrawMatchesFlags::DEFAULT,
     )?;
 
-    // // Show matches
+    // Show matches
     imshow("Matches", &out_image)?;
     opencv::highgui::wait_key(0)?;
 
