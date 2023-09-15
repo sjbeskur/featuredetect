@@ -23,7 +23,8 @@
 
 
 ## Going Forward:
-As of my last knowledge update in September 2021, GTSAM itself does not provide direct functionality for generating point clouds from a series of images. GTSAM is focused on optimization and estimation tasks in robotics and computer vision, such as SLAM, sensor fusion, and nonlinear optimization.
+
+GTSAM itself does not provide direct functionality for generating point clouds from a series of images. GTSAM is focused on optimization and estimation tasks in robotics and computer vision, such as SLAM, sensor fusion, and nonlinear optimization.
 
 However, you can use GTSAM in conjunction with other libraries and tools to achieve this goal. One common approach is to use a structure-from-motion (SfM) pipeline that combines feature extraction, matching, camera pose estimation, and point cloud reconstruction. Here's a simplified outline of how you might use various tools, including GTSAM, for this purpose:
 
