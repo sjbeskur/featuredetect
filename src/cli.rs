@@ -29,7 +29,7 @@ pub enum Command {
     /// Help message for read.
     Match {
         /// An example option
-        // #[clap(long, short = 'o')]
+        
         // example_opt: bool,
 
         /// The path to read from
@@ -40,6 +40,9 @@ pub enum Command {
     },
     /// Help message for write.
     Detect{
+        
+        #[clap(long, short = 's', default_value_t = false)]
+        show: bool,
         /// The path to read from
         path: Utf8PathBuf,
 

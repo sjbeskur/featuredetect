@@ -1,7 +1,6 @@
 //use opencv::highgui::;
 use featuredetect::*;
 
-type AppResult = Result<(), Box<dyn std::error::Error>>;
 
 fn main() -> AppResult<> {
     let config = cli::parse_args();
@@ -13,8 +12,18 @@ fn main() -> AppResult<> {
                     
         },
 
-        cli::Command::Detect{ path } => {
-            orb_detector::orb_detect(&path.to_string())?;
+        cli::Command::Detect{ show, path } => {
+
+            
+            let now = std::time::Instant::now();        
+            orb_detector::orb_detect(&path.to_string(), show)?;
+            println!("orb - time in millis: {}", now.elapsed().as_millis());
+
+            let now = std::time::Instant::now();        
+
+            akaze_detector::detect(&path.to_string(), show)?;
+
+            println!("akaze - time in millis: {}", now.elapsed().as_millis());
         
         }
     }

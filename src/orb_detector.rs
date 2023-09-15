@@ -6,7 +6,7 @@ use opencv::{
 };
 
 
-pub fn orb_detect(image_file: &str) -> Result<(), Box<dyn std::error::Error>> {
+pub fn orb_detect(image_file: &str, show_img: bool) -> Result<(), Box<dyn std::error::Error>> {
     let img = imread(image_file, IMREAD_GRAYSCALE).unwrap();
 
     let nfeatures = 500;
@@ -32,26 +32,22 @@ pub fn orb_detect(image_file: &str) -> Result<(), Box<dyn std::error::Error>> {
 
     let mut keypoints = opencv::core::Vector::new();
 
-    let mut mask = Mat::default();
-    my_orb.detect(&img, &mut keypoints, &mask)?;
+    let mut desc = Mat::default();
+    let mask = Mat::default();
+    //my_orb.detect(&img, &mut keypoints, &mask)?;
 
-    let count = keypoints.len();
-    println!("Number of keypoints: {}", count);
+    //let count = keypoints.len();
+    //println!("Number of keypoints: {}", count);
 
     // compute the descriptors with ORB
-    my_orb.compute(&img, &mut keypoints, &mut mask)?;
+    my_orb.compute(&img, &mut keypoints, &mut desc)?;
+    my_orb.detect_and_compute(&img, &mask, &mut keypoints, &mut desc, false)?;
 
-    let red_color = Scalar::new(0.0, 0.0, 255.0, 0.0);
-    let mut out_img = img.clone();
-    draw_keypoints(&img, &keypoints, &mut out_img, red_color, DrawMatchesFlags::DEFAULT)?;
+    
+    // Uncomment this to show the image with keypoints
+    if show_img{    
+        super::img_util::show_keypoint(img, keypoints)?;
+    }
 
-    // Create a named window to display the image
-    named_window("Display Window", WindowFlags::WINDOW_NORMAL as i32)?;
-
-    // Display the image
-    imshow("Display Window", &out_img)?;
-
-    // Wait for a key press (0 means wait indefinitely)
-    opencv::highgui::wait_key(0)?;
     Ok(())
 }
