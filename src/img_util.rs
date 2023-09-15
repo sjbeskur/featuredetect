@@ -1,9 +1,7 @@
 use opencv::{
-    core::{Scalar, Mat, NORM_HAMMING, no_array, Vector, KeyPoint },
+    core::{Scalar, Mat, Vector, KeyPoint },
     features2d::*,
-    types::{VectorOfDMatch, VectorOfKeyPoint},
     highgui::{imshow, named_window, WindowFlags},
-    imgcodecs::{imread, IMREAD_GRAYSCALE},    
 };
 
 

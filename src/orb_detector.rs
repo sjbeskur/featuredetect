@@ -1,7 +1,6 @@
 use opencv::{
     core::*,
     features2d::*,
-    highgui::{imshow, named_window, WindowFlags},
     imgcodecs::{imread, IMREAD_GRAYSCALE},
 };
 
