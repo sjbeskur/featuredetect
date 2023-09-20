@@ -37,10 +37,12 @@ Use GTSAM to estimate the relative poses (transformations) between camera frames
 3. Bundle Adjustment:
 After estimating camera poses, perform bundle adjustment using GTSAM. Bundle adjustment refines the estimated poses and 3D points by minimizing the reprojection error, which is the difference between the projected 3D points and the observed 2D keypoints in the images.
 
-4. Point Cloud Generation:
+Fredy - Explore formulate the Bundle Adjustmet with Factor Graphs 
+
+5. Point Cloud Generation:
 Once the bundle adjustment is complete, you can extract the 3D coordinates of the triangulated points (landmarks) from the optimization results. These 3D points collectively form your 3D point cloud.
 
-5. Visualization:
+6. Visualization:
 Use a 3D visualization library like PCL (Point Cloud Library) or OpenGL to visualize the generated point cloud.
 
 It's important to note that implementing a complete structure-from-motion pipeline involves multiple steps, and you may need to work with other libraries and tools in addition to GTSAM. Also, the field of computer vision and SLAM is rapidly evolving, so it's a good idea to search for more recent resources and examples to ensure you're using the most up-to-date techniques and libraries.
