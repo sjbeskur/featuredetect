@@ -48,3 +48,20 @@ Use a 3D visualization library like PCL (Point Cloud Library) or OpenGL to visua
 It's important to note that implementing a complete structure-from-motion pipeline involves multiple steps, and you may need to work with other libraries and tools in addition to GTSAM. Also, the field of computer vision and SLAM is rapidly evolving, so it's a good idea to search for more recent resources and examples to ensure you're using the most up-to-date techniques and libraries.
 
 For up-to-date examples and tutorials, consider searching for resources on GitHub, research papers, online forums, and websites of academic institutions that focus on computer vision and robotics.
+
+
+## Cross-platform builds
+
+### Xilinx
+
+```
+export CARGO_TARGET_AARCH64_UNKNOWN_LINUX_GNU_LINKER=/usr/bin/aarch64-linux-gnu-gcc
+cargo build --target aarch64-unknown-linux-gnu --release
+```
+
+
+### Raspberry Pi (3B+)
+
+```
+export CARGO_TARGET_ARMV7_UNKNOWN_LINUX_GNUEABIHF_LINKER=/usr/bin/arm-linux-gnueabihf-gcc
+cargo build --target armv7-unknown-linux-gnueabihf --release

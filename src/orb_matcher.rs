@@ -46,7 +46,7 @@ pub fn detect_matches(file0: &str, file1: &str ) -> Result<(), Box<dyn std::erro
         &mut out_image,
         Scalar::all(-1.0),
         Scalar::all(-1.0),
-        &Vector::<i8>::new(),
+        &Vector::<u8>::new(),
         DrawMatchesFlags::DEFAULT,
     )?;
 
