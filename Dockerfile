@@ -22,9 +22,9 @@ WORKDIR /opencv/build
 
 RUN curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
 
-RUN rustup target add aarch64-unknown-linux-gnu 
-
+#ENV PATH="${PATH}:~/.cargo/bin"
 WORKDIR /build
+RUN ~/.cargo/bin/rustup target add aarch64-unknown-linux-gnu 
 
 ENV CARGO_TARGET_AARCH64_UNKNOWN_LINUX_GNU_LINKER=/usr/bin/aarch64-linux-gnu-gcc
-RUN cargo build --target aarch64-unknown-linux-gnu
+#RUN cargo build --target aarch64-unknown-linux-gnu
