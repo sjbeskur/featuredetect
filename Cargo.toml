@@ -6,7 +6,7 @@ edition = "2021"
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
+opencv = { version = "0.84.5" }
 clap = { version = "4.4", features = ["derive"] }
-opencv = "0.84.5"
 ndarray = "0.15"
 camino = "1.1"
