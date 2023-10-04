@@ -26,7 +26,7 @@ pub fn parse_args() -> Config {
 
 #[derive(Debug, Subcommand)]
 pub enum Command {
-    /// Help message for read.
+    /// Match features between two input images
     Match {
         /// An example option
         
@@ -38,7 +38,8 @@ pub enum Command {
         path1: Utf8PathBuf,
         // (can #[clap(flatten)] other argument structs here)
     },
-    /// Help message for write.
+
+    /// Detect features using ORB and Akaze Feature Detectors.
     Detect{
         
         #[clap(long, short = 's', default_value_t = false)]
