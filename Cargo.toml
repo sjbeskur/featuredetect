@@ -10,3 +10,4 @@ opencv = { version = "0.84.5" }
 clap = { version = "4.4", features = ["derive"] }
 ndarray = "0.15"
 camino = "1.1"
+image = "0.24"

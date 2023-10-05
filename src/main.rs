@@ -25,6 +25,12 @@ fn main() -> AppResult<> {
 
             println!("akaze - time in millis: {}", now.elapsed().as_millis());
         
+        },
+
+        cli::Command::Sparse{ path } => {
+
+            sparsestereo::split_horizontal(&path.to_string());
+        
         }
     }
 

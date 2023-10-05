@@ -48,5 +48,11 @@ pub enum Command {
         path: Utf8PathBuf,
 
     },
+
+    Sparse{
+        /// The path to read from
+        path: Utf8PathBuf,
+
+    }
     // ...other commands (can #[clap(flatten)] other enum variants here)
 }
