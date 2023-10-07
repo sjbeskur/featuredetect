@@ -11,3 +11,7 @@ clap = { version = "4.4", features = ["derive"] }
 ndarray = "0.15"
 camino = "1.1"
 image = "0.24"
+nalgebra = "0.32"
+num = "0.4"
+
+camera_models = { git = "https://github.com/sjbeskur/cameras.git", branch = "master" }

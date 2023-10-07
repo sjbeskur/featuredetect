@@ -1,3 +1,7 @@
+
+pub mod triangulate;
+
+
 use image::{DynamicImage, GenericImageView, ImageFormat, open, save_buffer_with_format};
 
 

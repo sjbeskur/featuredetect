@@ -8,7 +8,7 @@
   - sudo apt install libstdc++-12-dev
 - **OpenCV v4.6.0**
   - ``` git clone  https://github.com/opencv/opencv.git  --branch 4.6.0 --depth 1 ```
-  - ``` cmake -B target/ -S . ```
+  - ``` cmake -B target/ -S . -DBUILD_EXAMPLES=OFF -DBUILD_TESTS=OFF  -DBUILD_PERF_TESTS=OFF ```
   - ``` cd target/ && make -j`nproc` ```
   - ``` sudo make install ```
 
