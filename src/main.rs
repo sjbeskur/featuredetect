@@ -12,18 +12,19 @@ fn main() -> AppResult<> {
                     
         },
 
-        cli::Command::Detect{ show, path } => {
-
+        cli::Command::Detect{ show, path, matcher} => {
             
             let now = std::time::Instant::now();        
-            orb_detector::orb_detect(&path.to_string(), show)?;
-            println!("orb - time in millis: {}", now.elapsed().as_millis());
+            match matcher {
+                cli::MatchStrategy::Orb => {
+                    orb_detector::orb_detect(&path.to_string(), show)?;
+                },
+                cli::MatchStrategy::Akaze => {
+                    akaze_detector::detect(&path.to_string(), show)?;
+                }
 
-            let now = std::time::Instant::now();        
-
-            akaze_detector::detect(&path.to_string(), show)?;
-
-            println!("akaze - time in millis: {}", now.elapsed().as_millis());
+            }
+            println!("{:?}: time in millis: {}",matcher, now.elapsed().as_millis());
         
         },
 

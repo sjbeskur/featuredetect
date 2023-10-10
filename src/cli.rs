@@ -41,6 +41,9 @@ pub enum Command {
 
     /// Detect features using ORB and Akaze Feature Detectors.
     Detect{
+
+        #[clap(long, short = 'm', value_enum)]
+        matcher: MatchStrategy,
         
         #[clap(long, short = 's', default_value_t = false)]
         show: bool,
@@ -55,4 +58,11 @@ pub enum Command {
 
     }
     // ...other commands (can #[clap(flatten)] other enum variants here)
+
+}
+
+#[derive(clap::ValueEnum, Clone, Debug)]
+pub enum MatchStrategy{
+    Orb,
+    Akaze,
 }
