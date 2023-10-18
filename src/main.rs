@@ -5,11 +5,17 @@ use featuredetect::*;
 fn main() -> AppResult<> {
     let config = cli::parse_args();
     match config.command{
-        cli::Command::Match {path0, path1} => {
-            //let file0 = "img/box.png";
-            //let file1 = "img/box_in_scene.png";
-            orb_matcher::detect_matches(&path0.to_string(), &path1.to_string())?;
-                    
+        cli::Command::Match {path0, path1, matcher} => {
+
+            match matcher {
+                cli::MatchStrategy::Orb => {
+                    orb_matcher::detect_matches(&path0.to_string(), &path1.to_string())?;
+                },
+                cli::MatchStrategy::Akaze => {
+                    akaze_detector::match_features(&path0.to_string(), &path1.to_string())?;
+                }
+
+            }                    
         },
 
         cli::Command::Detect{ show, path, matcher} => {

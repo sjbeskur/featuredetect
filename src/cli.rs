@@ -28,9 +28,8 @@ pub fn parse_args() -> Config {
 pub enum Command {
     /// Match features between two input images
     Match {
-        /// An example option
-        
-        // example_opt: bool,
+        #[clap(long, short = 'm', value_enum)]
+        matcher: MatchStrategy,
 
         /// The path to read from
         path0: Utf8PathBuf,
