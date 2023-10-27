@@ -18,9 +18,10 @@ pub fn triangulate<T: MyScalar>(rotation: &Matrix3<T>, translation: &Matrix3x1<T
     translation.cross(&x2).dot(&z)
 }
 
+#[allow(non_snake_case)]
 pub fn triangulate_one(R: &Matrix3f, t: &Matrix3x1f, camera: &PinholeCamera, &x1 : &Matrix3x1f, x2: &Matrix3x1f) -> f32{
     let mut d = triangulate(R, t, &x1, &x2);
-    let e: f32 = 0.0;
+    let _e: f32 = 0.0;
     let u2 = camera.project(&x2);
     let jp_d = R*x1;
     let mut z: Matrix2x1f; 

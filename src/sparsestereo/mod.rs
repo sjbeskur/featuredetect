@@ -2,8 +2,8 @@
 pub mod triangulate;
 
 
-use image::{DynamicImage, GenericImageView, ImageFormat, open, save_buffer_with_format};
-
+use image::{GenericImageView, ImageFormat, open, save_buffer_with_format}; //DynamicImage, 
+ 
 
 pub fn split_horizontal(img_file: &str){
     let img = open(img_file).unwrap();
