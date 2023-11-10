@@ -8,12 +8,15 @@ pub mod triangulate;
 pub mod akaze_stereo;
 pub mod traits;
 
- type ProjectionMatrix = SMatrix<f32, 3, 4>;
+type ProjectionMatrix = SMatrix<f32, 3, 4>;
 type IntrinsicKMatrix = SMatrix<f32, 3, 4>;
 type ExtrinsicTMatrix = SMatrix<f32, 4, 4>;
 type RMatrix = SMatrix<f32, 3, 3>;
 
-
+// Three Rows x N columns
+// x x x x.....
+// y y y y.....
+// z z z z.....
 type PointCloud = OMatrix<f32, U3, Dyn>;  // consider promoting this to more of a first class construct.
 
 
