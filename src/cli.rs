@@ -36,6 +36,9 @@ pub enum Command {
 
         path1: Utf8PathBuf,
         // (can #[clap(flatten)] other argument structs here)
+
+        #[clap(long, short = 't', default_value_t=10)]
+        top: i32,
     },
 
     /// Detect features using ORB and Akaze Feature Detectors.

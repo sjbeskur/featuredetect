@@ -7,7 +7,7 @@ pub mod sparsestereo;
 
 //pub mod sfm; todo
 
-pub(crate) mod img_util;
+pub(crate) mod image_util;
 
 pub mod mat2ndarray;
 

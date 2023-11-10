@@ -12,7 +12,7 @@ pub fn detect_matches(file0: &str, file1: &str ) -> Result<(), Box<dyn std::erro
     let img0 = imread(file0, IMREAD_GRAYSCALE)?;
     let img1 = imread(file1, IMREAD_GRAYSCALE)?;
 
-    let mut orb = ORB::default()?;
+    let mut orb = ORB::create_def()?;
     let mask = Mat::default(); // or no_array(); ??
 
     let mut kp_a = VectorOfKeyPoint::new();

@@ -45,7 +45,7 @@ pub fn orb_detect(image_file: &str, show_img: bool) -> Result<(), Box<dyn std::e
     
     // Uncomment this to show the image with keypoints
     if show_img{    
-        super::img_util::show_keypoint(img, keypoints)?;
+        super::image_util::show_keypoint(img, keypoints)?;
     }
 
     Ok(())

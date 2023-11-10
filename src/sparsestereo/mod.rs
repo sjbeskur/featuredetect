@@ -1,35 +1,27 @@
+use na::SMatrix;
+use nalgebra as na;
+
 
 pub mod triangulate;
+pub mod akaze_stereo;
+pub mod traits;
 
-
-use image::{GenericImageView, ImageFormat, open, save_buffer_with_format}; //DynamicImage, 
  
+type ProjectionMatrix = SMatrix<f32, 3, 4>;
+type IntrinsicKMatrix = SMatrix<f32, 3, 4>;
+type ExtrinsicTMatrix = SMatrix<f32, 4, 4>;
+type RMatrix = SMatrix<f32, 3, 3>;
 
-pub fn split_horizontal(img_file: &str){
-    let img = open(img_file).unwrap();
+/// The intrinsic matrix is a transformation matrix
+/// that converts points from the camera coordinate
+/// system to the pixel coordinate system.
+type KMat = IntrinsicKMatrix;
 
-    // Get the dimensions of the image
-    let (width, height) = img.dimensions();
-    println!("w: {} h: {}", width, height);
+/// The extrinsic matrix is a 4x4 transformation matrix that
+/// converts points from the world coordinate system to the
+/// camera coordinate system. The camera extrinsic matrix changes
+/// if the physical location/orientation of the camera is changed.
+type TMat = ExtrinsicTMatrix;
 
-    // Split the image in half horizontally
-    let left_half = img.view(0, 0, width / 2, height);
-    let right_half = img.view(width / 2, 0, width / 2, height);
 
-    let left_half_raw = left_half.to_image();
-    let (w,h) = left_half_raw.dimensions();
-    println!("w: {} h: {}", w, h);
-    let left_half_raw = left_half_raw.as_raw();
-    let right_half_raw = right_half.to_image();
-    let right_half_raw = right_half_raw.as_raw();
 
-    // Save the two halves as separate images
-    save_buffer_with_format("left_half.png", left_half_raw, w, h,  image::ColorType::La16, ImageFormat::Png).unwrap();
-    save_buffer_with_format("right_half.png", right_half_raw, w, h, image::ColorType::La16, ImageFormat::Png).unwrap();
-
-}
-
-#[test]
-fn test_split_horizontal(){
-    assert_eq!(true, true);
-}

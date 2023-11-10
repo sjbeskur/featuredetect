@@ -57,14 +57,14 @@ pub fn detect(file0: &str, show_img: bool) -> super::AppResult<> {
     let _ = akaze.detect_and_compute(&img0, &mut kp_a, &mut des_a);
 
     if show_img{    
-        super::img_util::show_keypoint(img0, kp_a)?;
+        super::image_util::show_keypoint(img0, kp_a)?;
     }
 
     Ok(())
 }
 
 
-pub fn match_features(file0: &str, file1: &str) -> Result<(), Box<dyn std::error::Error>>{
+pub fn match_features(file0: &str, file1: &str, top: i32) -> Result<(), Box<dyn std::error::Error>>{
     let img0 = imread(file0, IMREAD_GRAYSCALE)?;
     let img1 = imread(file1, IMREAD_GRAYSCALE)?;
 
@@ -87,7 +87,7 @@ pub fn match_features(file0: &str, file1: &str) -> Result<(), Box<dyn std::error
 
     let mut v = matches.to_vec();
     v.sort_by(|a,b| a.distance.partial_cmp(&b.distance).unwrap());
-    let top_n = Vector::from_slice(&v[0..10]);
+    let top_n = Vector::from_slice(&v[0..top as usize]);
 
 
     let mut out_image = Mat::default();
