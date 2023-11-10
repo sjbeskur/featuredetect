@@ -1,4 +1,6 @@
-use na::SMatrix;
+#![allow(dead_code)]
+
+use na::{SMatrix, U3, DMatrix, OMatrix, Dyn};
 use nalgebra as na;
 
 
@@ -6,11 +8,14 @@ pub mod triangulate;
 pub mod akaze_stereo;
 pub mod traits;
 
- 
-type ProjectionMatrix = SMatrix<f32, 3, 4>;
+ type ProjectionMatrix = SMatrix<f32, 3, 4>;
 type IntrinsicKMatrix = SMatrix<f32, 3, 4>;
 type ExtrinsicTMatrix = SMatrix<f32, 4, 4>;
 type RMatrix = SMatrix<f32, 3, 3>;
+
+
+type PointCloud = OMatrix<f32, U3, Dyn>;  // consider promoting this to more of a first class construct.
+
 
 /// The intrinsic matrix is a transformation matrix
 /// that converts points from the camera coordinate
