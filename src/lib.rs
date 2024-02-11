@@ -2,6 +2,7 @@ pub mod cli;
 pub mod orb_matcher;
 pub mod orb_detector;
 pub mod akaze_detector;
+pub mod ranging;
 
 pub mod sparsestereo;
 

@@ -40,7 +40,6 @@ pub enum Command {
         #[clap(long, short = 't', default_value_t=10)]
         top: i32,
     },
-
     /// Detect features using ORB and Akaze Feature Detectors.
     Detect{
 
@@ -53,8 +52,16 @@ pub enum Command {
         path: Utf8PathBuf,
 
     },
-
+    
     Sparse{
+        /// The path to read from
+        path: Utf8PathBuf,
+
+    },
+
+    MonoRange{        
+        #[clap(long, short = 's', default_value_t = false)]
+        show: bool,
         /// The path to read from
         path: Utf8PathBuf,
 
