@@ -14,17 +14,21 @@ fn test_image_to_na() -> TestResult {
     let cols = dims.0 as usize;
     let img_gray = img.into_luma8(); // grayscale image
 
-    let data: Vec<f64> = img_gray
+    let data: Vec<f32> = img_gray
         .pixels()
-        .flat_map(|p| vec![p[0] as f64]) // Assuming grayscale, only one channel
+        .flat_map(|p| vec![p[0] as f32]) // Assuming grayscale, only one channel
         .collect();
 
-    let img = DMatrix::from_row_slice(rows, cols,&data);
+    let mut img = DMatrix::from_row_slice(rows, cols,&data);
 
     // faking it for test but this is sort of what we need for NUC
     // y = mx + b  
-    let result = img.component_mul(&img);
-    let result = result + img;
-
+    let corrected = non_uniform_correct(&mut img);
     Ok(())
+}
+
+fn non_uniform_correct(img: &mut DMatrix<f32>) -> DMatrix<f32>{
+    let result = img.component_mul(&img);  // fake gain 
+    let offset = img.clone(); // fake the offset this should be loaded from config;
+    result + offset
 }
